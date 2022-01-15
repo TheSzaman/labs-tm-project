@@ -1,1 +1,0 @@
-Kiedyś tu będzie schemat
