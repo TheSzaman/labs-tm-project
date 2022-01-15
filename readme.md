@@ -4,6 +4,7 @@ Układ ma za zadanie wyświetlać na ekranie LCD wskaźnik sygnału dźwięku w 
 - płytka Arduino Uno
 - płytka stykowa
 - ekran LCD 16x2
+- potencjometr 10k
 - kable
 # Schemat
 ![Schemat płytki](./hardware/schemat.jpg)
