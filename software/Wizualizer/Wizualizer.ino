@@ -1,18 +1,3 @@
-# Projekt wizualizera dźwięku
-Układ ma za zadanie wyświetlać na ekranie LCD wskaźnik sygnału dźwięku w opraciu o transformatę fouriera.
-# Potrzebne elementy
-- płytka Arduino Uno
-- płytka stykowa
-- ekran LCD 16x2
-- kable
-# Schemat
-![Schemat płytki](./hardware/schemat.jpg)
-# Zdjęcie przedstawiające wykonany projekt
-![Zdjęcie płytki](./hardware/plytka.jpg)
-# Film przedstawiający wykonany projekt
-[![Film z płytką](http://img.youtube.com/vi/jLMTDOeTb-E/0.jpg)](http://www.youtube.com/watch?v=jLMTDOeTb-E "Wizualizer dźwięku test")
-# Kod
-```cpp
 #include <LiquidCrystal.h>//Obsługa wyświetlacza
 #include <fix_fft.h>//Obsługa transforamty fouriera
 
@@ -23,13 +8,13 @@ LiquidCrystal lcd(2, 3, 4, 5, 6, 7); //Informacja o podłączeniu wyświetlacza
 
 const int Yres = 8;//Górny zakres
 const int gain = 3;//Czułość
-float peaks[64];//tablica przechowująca wartość do wyświetlenia
+float peaks[64];//Tablica przechowująca wartość do wyświetlenia
 char Lim[64], Ldata[64];//Lewy kanał
 char Rim[64], Rdata[64];//Prawy kanał
 char data_avgs[64];//Średnia wartość wyliczeń
-int i;//do pętli
+int i;//Do pętli
 
-//znaki słupków
+//Znaki słupków
 byte v1[8] = {
   B00000, B00000, B00000, B00000, B00000, B00000, B00000, B11111
 };
@@ -58,7 +43,7 @@ byte v8[8] = {
 void setup(){
   lcd.begin(16, 2);
   lcd.clear();
- //deklaracja słupków
+//Deklaracja słupków
   lcd.createChar(1, v1);
   lcd.createChar(2, v2);
   lcd.createChar(3, v3);
@@ -68,7 +53,7 @@ void setup(){
   lcd.createChar(7, v7);
   lcd.createChar(8, v8);
 
-//animacja wczytywania, totalnie zbędna, ale super wygląda
+//Animacja wczytywania, totalnie zbędna, ale super wygląda
   int load;
   lcd.setCursor(0, 0);
   lcd.print("WCZYTYWANIE.....");
@@ -133,7 +118,7 @@ void LCD(){
   for (int x = 1; x < 16; x++){
     int y = x + 16;
 
-//jeśli nowa wartości jest większa od starej
+//Jeśli nowa wartości jest większa od starej
     if (data_avgs[x] > peaks[x]){
       peaks[x] = data_avgs[x];
     }
@@ -156,11 +141,8 @@ void LCD(){
 }
 
 void decay(){
-  //Animacja opadania słupka
+//Animacja opadania słupka
   for (int x = 0; x <= 32; x++){
     peaks[x] = peaks[x] - 1;//-1 od ostatniej nowej wartości
   }
 }
-```
-# Linki
-[Biblioteka do FFT](https://www.arduino.cc/reference/en/libraries/fix_fft/)
